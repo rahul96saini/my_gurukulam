@@ -1,0 +1,68 @@
+#!/bin/bash
+
+#sed -i it saves the changes to the file and show then as output
+
+cmd=$1
+file=$2
+
+case "$cmd" in
+
+addLineTop)
+    line="$3"
+    sed -i "1i $line" "$file"  #1 means line no 1 and i means insert before that line
+    ;;
+
+addLineBottom)
+    line="$3"
+    echo "$line" >> "$file"   # >> operator appends line at the bottom
+    ;;
+
+addLineAt)
+    lineno="$3"
+    line="$4"
+    sed -i "${lineno}i $line" "$file"  #same as addlinetop but here we are telling which line number
+    ;;
+
+updateFirstWord)
+    old="$3"
+    new="$4"
+    sed -i "0,/$old/s//$new/" "$file" #0 means start from begining and once found replace with new
+    ;;
+
+updateAllWords)
+    old="$3"
+    new="$4"
+    sed -i "s/$old/$new/g" "$file" #search in all and replace all word with new
+    ;;
+
+insertWord)
+    word1="$3"
+    word2="$4"
+    insert="$5"
+    sed -i "s/$word1 $word2/$word1 $insert $word2/g" "$file" # s means substitue/replace and g means global
+    ;;
+
+deleteLine)
+    lineno="$3"
+    sed -i "${lineno}d" "$file" # d means delete entire line
+    ;;
+
+delLineWord)
+    word="$3"
+    sed -i "/$word/d" "$file" # search the word and delete the entire line
+    ;;
+
+countLines)
+    wc -l < "$file"  # wc word count utility
+    ;;
+
+upperCase)
+    sed -i "s/.*/\U&/" "$file"  # .* matches all text and \U convert matched text to uppercase(&)
+    ;;
+
+*)
+    echo "invalid command"
+    echo "Usage: ./otTextEditor <command> <file> [arguments]"
+    ;;
+
+esac

@@ -1,0 +1,62 @@
+412  cd rahul/Music/mg/linux/Assignment-2
+  413  ls
+  414  rm -rf Usermanager.sh 
+  415  ls
+  416  nano UserManager.sh 
+  417  rm UserManager.sh 
+  418  ls
+  419  nano UserManager.sh
+  420  ls
+  421  ls /etc/passwd
+  422  cat /etc/passwd
+  423  clear
+  424  ls
+  425  ls -l UserManager.sh 
+  426  chmod 764 UserManager.sh 
+  427  ls -l UserManager.sh 
+  428  ./Usermanager.sh addGroup g1
+  429  ./UserManager.sh addGroup g1
+  430  nano UserManager.sh 
+  431  ./UserManager.sh addGroup g1
+  432  nano UserManager.sh 
+  433  ./UserManager.sh addGroup g1
+  434  cat UserManager.sh 
+  435  clear
+  436  nano UserManager.sh 
+  437  cat
+  438  cat UserManager.sh 
+  439  clear
+  440  ./UserManager.sh addGroup g1
+  441  ./UserManager.sh addUser u1
+  442  cat /etc/passwd
+  443  clear
+  444  ./UserManager.sh addUser u1 g1
+  445  cat /etc/passwd
+  446  ls /home
+  447  sudo ls -la /home/u1
+  448  ./UserManager addGroup g2
+  449  ./UserManager.sh addGroup g2
+  450  ./UserManager.sh addUser u2 g2
+  451  ls home
+  452  ls /home
+  453  sudo ls -la /home/u2
+  454  sudo tree /home
+  455  clear
+  456  ./UserManager.sh changeShell u1 /bin/bash
+  457  cat /etc/passwd | grep ^u1
+  458  ./UserManager.sh changePasswd u1
+  459  ./UserManager.sh ls User
+  460  ./UserManager.sh ls Group
+  461  clear
+  462  ./UserManager.sh delGroup g1
+  463  ./UserManager.sh ls Group
+  464  clear
+  465  ./UserManager.sh delUser u1
+  466  ./UserManager.sh delUser u2
+  467  ./UserManager.sh delGroup g1
+  468  ./UserManager.sh delGroup g2
+  469  ./UserManager.sh ls Group
+  470  ./UserManager.sh ls User
+  471  clear
+  472  history
+

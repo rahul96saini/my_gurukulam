@@ -1,0 +1,97 @@
+  Then create a another directory  with name "Assignment-01" inside your "linux" directory  .
+  217  mkdir Assignment-o1
+  218  ls
+  219  cd ../../../..
+  220  ls
+  221  cd ..
+  222  ls
+  223  cd home
+  224  ls
+  225  cd rahul
+  226  mkdir /tmp/dir1
+  227  ls /tmp
+  228  ls -l /tmp
+  229  clear
+  230  mkdir --help
+  231  mkdir -p /tmp/dir1/dir2/dir3
+  232  ls /tmp
+  233  clear
+  234  tree /tmp/dir1
+  235  sudo tree /tmp/dir1
+  236  sudo spt install tree
+  237  sudo apt install tree
+  238  tree /tmp/dir1
+  239  clear
+  240  ls
+  241  rmdir /tmp/dir1/dir2/dir3
+  242  ls /tmp/dir1/dir2
+  243  ls /tmp/dir1
+  244  touch /tmp/rahul.txt
+  245  ls /tmp
+  246  touch "This is my first line" > /tmp/rahul.txt
+  247  cat /tmp/rahul.txt
+  248  ls /tmp
+  249  clear
+  250  echo "This is my first line" > /tmp/rahul.txt
+  251  cat /tmp/rahul.txt
+  252  echo "this is a additional content" >> /tmp/rahul.txt
+  253  cat /tmp/rahul.txt
+  254  echo "saini is my last name" > /tmp/saini.txt
+  255  ls -l /tmp
+  256  cat /tmp/saini.txt
+  257  clear
+  258  echo --help
+  259  ls
+  260  echo -e "this is line at the  beginning\n$(cat /tmp/saini.txt)" > /tmp/saini.txt
+  261  cat /tmp/saini.txt
+  262  vi /tmp/saini.txt
+  263  cat /tmp/saini.txt
+  264  nano /tmp/saini.txt
+  265  cat /tmp/saini.txt
+  266  clear
+  267  cat /tmp/saini.txt | head -n 5
+  268  cat /tmp/saini.txt | tail -n 2
+  269  cat /tmp/saini.txt | head -n 6 | tail -n 1
+  270  cat /tmp/saini.txt | head -n 8 | tail -n 6
+  271  ls -la /tmp
+  272  clear
+  273  ls -la /tmp
+  274  ls -la /tmp | grep d
+  275  ls -la /tmp | grep ^d
+  276  ls -la /tmp | grep ^-
+  277  clear
+  278  cp /tmp/saini.txt /tmp/dir1/dir2/
+  279  ls /tmp/dir1/dir2
+  280  ls /tmp
+  281  clear
+  282  cp /tmp/dir1/dir2/saini.txt /tmp/dir1/dir2/saini_copy.txt 
+  283  ls /tmp/dir1/dir2
+  284  mv /tmp/rahul.txt /tmp/rahul_new.txt
+  285  ls /tmp
+  286  mv /tmp/saini.txt /tmp/dir1
+  287  ls /tmp
+  288  ls /tmp/dir1
+  289  clear
+  290  ls /tmp
+  291  ls /tmp/dir1/dir2
+  292  truncate --help
+  293  clear
+  294  truncate -s 0 /tmp/dir1/dir2/saini_copy.txt
+  295  cat /tmp/dir1/dir2/saini_copy.txt
+  296  ls /tmp/dir1/dir2
+  297  nano /tmp/dir1/dir2/saini_copy.txt
+  298  rm -rf /tmp/dir1/dir2/saini_copy.txt
+  299  ls /tmp/dir1/dir2
+  300  rm -rf /tmp/dir1/dir2/saini.txt
+  301  ls /tmp/dir1/dir2
+  302  rmdir /tmp/dir1/dir2
+  303  ls /tmp/dir1
+  304  rm -rf /tmp/dir1/saini.txt
+  305  rmdir /tmp/dir1
+  306  ls /tmp
+  307  rm -rf /tmp/rahul.txt
+  308  rm -rf /tmp/rahul_new.txt
+  309  ls /tmp
+  310  clear
+  311  history
+

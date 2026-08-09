@@ -1,0 +1,29 @@
+Part A
+Create a template engine, that can generate values file and replace the variables provided as arguments
+./teplateEngine.sh template.file key1=value1 key2=value2....
+trainer.template
+{{fname}} is trainer of {{topic}}
+i.e
+./teplateEngine.sh <template file> fname=sandeep topic=linux
+
+sandeep is trainer of linux
+
+Part B
+Create a text editor utility, using which you can
+Add a line at top
+Add a line at bottom
+Add a line at specific line number
+Replace word
+Delete word
+Insert word
+Delete a line
+Delete a line containeing a word
+./otTextEditor addLineTop <file> <line>
+./otTextEditor addLineBottom <file> <line>
+./otTextEditor addLineAt <file> <linenumber> <line>
+./otTextEditor updateFirstWord <file> <word> <word2>
+./otTextEditor updateAllWords <file> <word> <word2>
+./otTextEditor insertWord <file> <word1> <word2> <word to be inserted>
+./otTextEditor deleteLine <file> <line no>
+./otTextEditor deleteLine <file> <line no> <word>
+Also come with your own features of text editor

@@ -1,0 +1,59 @@
+iUserManager utility
+
+Add NinjaTeam (Simulate Group) ex: team1
+Add a User (Simulate) under a team ex: Nitish added to team1
+
+
+Ensure below constraints are met:
+
+A user should have read,write, execute access to home directory(7)
+All the users of same team should have read and excute access to home directory of fellow team members.(5)
+others should have only execute permission to user's home directory(1)
+In home directory of every user there should be 2 shared directories
+
+team: Same team members will have full access(770)
+ninja: All ninja's will have full access(777)
+
+
+
+
+
+
+i.e
+./UserManager.sh addTeam amigo
+./UserManager.sh addTeam unixkings
+./UserManager.sh addUser Rakesh amigo
+./UserManager.sh addUser Sandeep unixkings
+
+Resultant Structure
+/home
+  - Rakesh
+    - team
+    - ninja
+  - Sandeep
+    - team
+    - ninja
+
+
+
+Additional Features
+
+change user Shell
+change user password
+Delete user
+Delete Group
+list user or Team
+
+
+i.e 
+./UserManager.sh delTeam amigo
+
+./UserManager.sh delUser Rakesh
+
+./UserManager.sh changePasswd Rakesh
+
+./UserManager.sh changeShell Rakehs /bin/bash
+
+./UserManager.sh ls User
+
+./UserManager.sh ls Team

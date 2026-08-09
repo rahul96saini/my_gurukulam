@@ -1,0 +1,48 @@
+Part A
+Please find your assignment for today
+Create a process management utility, to find
+Top n process by memory
+Top n process by cpu
+Kill process having least priority
+running duration of a process by name or pid
+List orphan process if any
+List zoombie process if any
+Kill process by name or pid
+List process that are waiting for the resources
+i.e.
+./ otProcessManager topProcess 5 memory
+./ otProcessManager topProcess 10 cpu
+./ otProcessManager killLeastPriorityProcess 
+./ otProcessManager RunningDurationProcess <processName>/<processID>
+./ otProcessManager listOrphanProcess
+./ otProcessManager listZoombieProcess
+./ otProcessManager killProcess <processName>/<processID>
+./ otProcessManager ListWaitingProcess
+Part B
+Process Manager utility
+Create a ProcessManager utility that will perform below operation:
+register a service which it will start as a daemon service( it will register script path and one alias to this service)
+start a particular service
+show the status of particular service(shows whether a service is running or not)
+stop a particular service
+change the priority of any service
+list the details of particular service started by this utility
+ i.e.
+./ProcessManager.sh -o register -s <path> -a <alias> -> Register Process
+./ProcessManager.sh -o start -a <alias> -> Start Process
+./ProcessManager.sh -o status  -a <alias> -> status of  processes
+./ProcessManager.sh -o kill -a <alias> -> Kill process
+./ProcessManager.sh -o priority -p <low/med/high> -a <alias> -> change priority
+./ProcessManager.sh -o list  
+output:
+service2
+service1
+service3
+./ProcessManager.sh -o top [-a <alias>] -> List process details
+output:
+ alias, PID, State, Priority, Script
+Part C
+Let's play around with process:
+clear a log file of running process
+delete a log file of running process and see what happens to process
+elevate the priority of a process

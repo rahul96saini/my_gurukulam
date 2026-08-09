@@ -1,0 +1,101 @@
+#!/bin/bash
+
+DB="$HOME/.otssh/servers.db" # stores the path to servers.db
+mkdir -p "$HOME/.otssh"      # creates the .otssh dir if it doesn't exist
+touch "$DB"                  # checks if it exists / creates empty file
+
+case "$1" in
+-a)  # add server
+    shift
+    port="22"
+    key=""
+    while [ $# -gt 0 ]
+    do
+        case "$1" in
+            -n) name="$2"; shift 2 ;;
+            -h) host="$2"; shift 2 ;;
+            -u) user="$2"; shift 2 ;;
+            -p) port="$2"; shift 2 ;;
+            -i) key=$(eval echo "$2"); shift 2 ;;
+            *) shift ;;
+        esac
+    done
+    echo "$name|$host|$user|$port|$key" >> "$DB"
+    echo "server connections added successfully"
+    ;;
+
+-U)  # update server (Capital -U)
+    shift
+    port="22"
+    key=""
+    while [ $# -gt 0 ]
+    do
+        case "$1" in
+            -n) name="$2"; shift 2 ;;
+            -h) host="$2"; shift 2 ;;
+            -u) user="$2"; shift 2 ;;
+            -p) port="$2"; shift 2 ;;
+            -i) key=$(eval echo "$2"); shift 2 ;;
+            *) shift ;;
+        esac
+    done
+    if grep -q "^$name|" "$DB"; then
+        tmpfile="$HOME/.otssh/temp.db"
+        grep -v "^$name|" "$DB" > "$tmpfile"
+        echo "$name|$host|$user|$port|$key" >> "$tmpfile"
+        mv "$tmpfile" "$DB"
+        echo "server updated successfully"
+    else
+        echo "ERROR: server $name not found."
+    fi
+    ;;
+
+ls)  # list servers
+    if [ "$2" = "-d" ]; then
+        while IFS="|" read -r name host user port key
+        do
+            if [ -n "$key" ]; then
+                echo "$name: ssh -i $key -p $port $user@$host"
+            elif [ "$port" = "22" ]; then
+                echo "$name: ssh $user@$host"
+            else
+                echo "$name: ssh -p $port $user@$host"
+            fi
+        done < "$DB"
+    else
+        cut -d'|' -f1 "$DB"
+    fi
+    ;;
+
+rm) # deleting a server
+    if [ -z "$2" ]; then
+        echo "Usage: ./otssh rm <server_name>"
+        exit 1
+    fi
+    if grep -q "^$2|" "$DB"; then
+        tmpfile="$HOME/.otssh/temp.db"
+        grep -v "^$2|" "$DB" > "$tmpfile"
+        mv "$tmpfile" "$DB"
+        echo "server '$2' deleted successfully"
+    else
+        echo "ERROR: server '$2' not found."
+    fi
+    ;;
+
+*)
+    server="$1"
+    line=$(grep "^$server|" "$DB")
+    if [ -z "$line" ]; then
+        echo "[ERROR]: Server information is not available, please add server first"
+        exit 1
+    fi
+    IFS="|" read -r name host user port key <<< "$line"
+
+    # Build and RUN the actual SSH command
+    cmd="ssh -p $port $user@$host"
+    [ -n "$key" ] && cmd="ssh -i $key -p $port $user@$host"
+
+    echo "Connecting to $name..."
+    exec $cmd   # <--- THIS LINE OPENS THE LIVE CONNECTION
+    ;;
+esac
