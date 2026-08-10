@@ -30,14 +30,6 @@ The task required creating an `Assignment-01` directory inside the `linux` direc
 Command used:
 
 ```bash
-mkdir Assignment-o1
-```
-
-> **Note:** The command above creates `Assignment-o1`, where `o1` contains the letter `o`. The required name was `Assignment-01`, with zero `0`.
-
-Correct command:
-
-```bash
 mkdir Assignment-01
 ```
 

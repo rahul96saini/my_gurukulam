@@ -20,7 +20,7 @@ For example
 Update FileManager to process Files as well
 - Create a file
 - Add content to file
-- Add conent at the begining of the file
+- Add content at the begining of the file
 - Show top n lines of a file
 - Show last n lines of a file
 - Show contents of a specific line number
