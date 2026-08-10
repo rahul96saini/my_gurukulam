@@ -1,4 +1,4 @@
-Template Engine & Text Editor Utilities
+# Template Engine & Text Editor Utilities
 
 This assignment contains two parts:
 
@@ -14,7 +14,7 @@ Create a template engine that reads a template file and replaces variables provi
 
 ## Syntax
 
-./templateEngine.sh \<template-file> key1=value1 key2=value2
+`./templateEngine.sh <template-file> key1=value1 key2=value2`
 
 ## Example Template
 
@@ -28,7 +28,7 @@ Hello this is {{name}} from {{place}}.
 
 ### Command:
 
-./templateEngine.sh trainer.template name=Rahul place=uttarakhand
+`./templateEngine.sh trainer.template name=Rahul place=uttarakhand`
 
 ### Output:
 
@@ -36,35 +36,35 @@ Hello this is Rahul from uttarakhand.
 
 # How templateEngine.sh Works
 
-1\. Get Template File
+## 1. Get Template File
 
-template="$1"
+`template="$1"`
 
 The first argument is the template file.
 
 ### Example:
 
-./templateEngine.sh trainer.template name=Rahul place=uttarakhand
+`./templateEngine.sh trainer.template name=Rahul place=uttarakhand`
 
 Therefore:
 
-$1 = trainer.template
+`$1 = trainer.template`
 
 The variable stores:
 
 template = trainer.template
 
-2\. Shift the Arguments
+## 2. Shift the Arguments
 
 - shift
 
-### Before shift:
+Before shift:
 
-$1 = trainer.template
-$2 = name=Rahul
-$3 = place=uttarakhand
+`$1 = trainer.template`
+`$2 = name=Rahul`
+`$3 = place=uttarakhand`
 
-### After:
+After:
 
 - shift
 
@@ -75,39 +75,39 @@ The remaining arguments are the key-value pairs:
 name=Rahul
 place=uttarakhand
 
-3\. Read Template Content
+## 3. Read Template Content
 
-content=$(cat "$template")
+`content=$(cat "$template")`
 
 This reads the complete template file and stores it in the content variable.
 
-### For example:
+For example:
 
 Hello this is {{name}} from {{place}}.
 
-4\. Process Key-Value Pairs
+## 4. Process Key-Value Pairs
 
-### The script uses:
+The script uses:
 
-for arg in "$@"
-do
+`for arg in "$@"`
+`do`
     ...
-done
+`done`
 
-$@ represents all remaining command-line arguments.
+`$@ represents all remaining command-line arguments.`
 
 For:
 
-./templateEngine.sh trainer.template name=Rahul place=uttarakhand
+`./templateEngine.sh trainer.template name=Rahul place=uttarakhand`
 
 the loop processes:
 
 name=Rahul
 place=uttarakhand
 
-5\. Extract the Key
+## 5. Extract the Key
 
-key=${arg%=\*}
+`key=${arg%=*}`
 
 For:
 
@@ -115,13 +115,13 @@ arg=name=Rahul
 
 the result is:
 
-key=name
+`key=name`
 
 The expression removes everything from the last = onward.
 
-6\. Extract the Value
+## 6. Extract the Value
 
-value=${arg#\*=}
+`value=${arg#*=}`
 
 For:
 
@@ -129,18 +129,18 @@ arg=name=Rahul
 
 the result is:
 
-value=Rahul
+`value=Rahul`
 
 The expression removes everything up to the first =.
 
-7\. Replace the Variable
+## 7. Replace the Variable
 
-content=$(echo "$content" | sed "s/{{${key}}}/$value/g")
+`content=$(echo "$content" | sed "s/{{${key}}}/$value/g")`
 
 For:
 
-key=name
-value=Rahul
+`key=name`
+`value=Rahul`
 
 the script replaces:
 
@@ -170,9 +170,9 @@ Hello this is {{name}} from {{place}}.
 
 ### Command
 
-./templateEngine.sh trainer.template name=Rahul place=uttarakhand
+`./templateEngine.sh trainer.template name=Rahul place=uttarakhand`
 
-### Output
+Output
 
 Hello this is Rahul from uttarakhand.
 
@@ -180,7 +180,7 @@ Hello this is Rahul from uttarakhand.
 ## Screenshots
 
 
-![Screenshot 0]\(partA/a5.a.png)
+![Screenshot 0](partA/a5.a.png)
 
 # Part B — Text Editor Utility
 
@@ -234,15 +234,15 @@ PEOPLE AT GURUKULEM IS AMAZING
 
 # Text Editor Operations
 
-1\. Add a Line at the Top
+## 1. Add a Line at the Top
 
 ### Command
 
-./otTextEditor addLineTop file.txt "This is a new first line"
+`./otTextEditor addLineTop file.txt "This is a new first line"`
 
 ### Implementation
 
-sed -i "1i $line" "$file"
+`sed -i "1i $line" "$file"`
 
 ### Explanation:
 
@@ -250,57 +250,57 @@ sed -i "1i $line" "$file"
 
 i → insert before the specified line
 
-sed -i → modify the file directly
+`sed -i → modify the file directly`
 
-2\. Add a Line at the Bottom
+## 2. Add a Line at the Bottom
 
 ### Command
 
-./otTextEditor addLineBottom file.txt "This is the last line"
+`./otTextEditor addLineBottom file.txt "This is the last line"`
 
 ### Implementation
 
-echo "$line" >> "$file"
+`echo "$line" >> "$file"`
 
 The >> operator appends the line to the end of the file.
 
-3\. Add a Line at a Specific Line Number
+## 3. Add a Line at a Specific Line Number
 
 ### Command
 
-./otTextEditor addLineAt file.txt 3 "This is line three"
+`./otTextEditor addLineAt file.txt 3 "This is line three"`
 
 ### Implementation
 
-sed -i "${lineno}i $line" "$file"
+`sed -i "${lineno}i $line" "$file"`
 
-For this example:
+### For this example:
 
-sed -i "3i This is line three" file.txt
+`sed -i "3i This is line three" file.txt`
 
 The line is inserted before the existing line 3.
 
-4\. Replace the First Occurrence of a Word
+## 4. Replace the First Occurrence of a Word
 
 ### Command
 
-./otTextEditor updateFirstWord file.txt DEVOPS KUBERNETES
+`./otTextEditor updateFirstWord file.txt DEVOPS KUBERNETES`
 
 ### Implementation
 
-sed -i "0,/$old/s//$new/" "$file"
+`sed -i "0,/$old/s//$new/" "$file"`
 
 The command searches from the beginning of the file and replaces only the first matching occurrence.
 
-5\. Replace All Occurrences of a Word
+## 5. Replace All Occurrences of a Word
 
 ### Command
 
-./otTextEditor updateAllWords file.txt RAHUL SURESH
+`./otTextEditor updateAllWords file.txt RAHUL SURESH`
 
 ### Implementation
 
-sed -i "s/$old/$new/g" "$file"
+`sed -i "s/$old/$new/g" "$file"`
 
 ### Here:
 
@@ -309,11 +309,11 @@ g = global
 
 Therefore, every occurrence of the old word is replaced.
 
-6\. Insert a Word
+## 6. Insert a Word
 
 ### Command
 
-./otTextEditor insertWord file.txt DEVOPS MYGURUKULUM AT
+`./otTextEditor insertWord file.txt DEVOPS MYGURUKULUM AT`
 
 The script searches for:
 
@@ -325,17 +325,17 @@ DEVOPS AT MYGURUKULUM
 
 ### Implementation
 
-sed -i "s/$word1 $word2/$word1 $insert $word2/g" "$file"
+`sed -i "s/$word1 $word2/$word1 $insert $word2/g" "$file"`
 
-7\. Delete a Line
+## 7. Delete a Line
 
 ### Command
 
-./otTextEditor deleteLine file.txt 3
+`./otTextEditor deleteLine file.txt 3`
 
 ### Implementation
 
-sed -i "${lineno}d" "$file"
+`sed -i "${lineno}d" "$file"`
 
 ### Here:
 
@@ -343,53 +343,53 @@ d = delete
 
 The specified line is removed from the file.
 
-8\. Delete a Line Containing a Word
+## 8. Delete a Line Containing a Word
 
 ### Command
 
-./otTextEditor delLineWord file.txt WINTER
+`./otTextEditor delLineWord file.txt WINTER`
 
 ### Implementation
 
-sed -i "/$word/d" "$file"
+`sed -i "/$word/d" "$file"`
 
 The command searches for the word and deletes the entire line containing it.
 
-9\. Count Lines
+## 9. Count Lines
 
 This is an additional feature implemented in the text editor.
 
 ### Command
 
-./otTextEditor countLines file.txt
+`./otTextEditor countLines file.txt`
 
 ### Implementation
 
-wc -l < "$file"
+`wc -l < "$file"`
 
-wc -l counts the number of lines in the file.
+`wc -l counts the number of lines in the file.`
 
-10\. Convert File to Uppercase
+## 10. Convert File to Uppercase
 
 This is another additional feature.
 
 ### Command
 
-./otTextEditor upperCase file.txt
+`./otTextEditor upperCase file.txt`
 
 ### Implementation
 
-sed -i "s/.\*/\U&/" "$file"
+`sed -i "s/.*/\U&/" "$file"`
 
 ### Explanation:
 
-.\* matches the complete line.
+.* matches the complete line.
 
 & represents the matched text.
 
 \U converts the matched text to uppercase.
 
-sed -i saves the changes directly to the file.
+`sed -i saves the changes directly to the file.`
 
 # Command Summary
 
@@ -408,45 +408,45 @@ sed -i saves the changes directly to the file.
 
 # Complete Usage Examples
 
-Add Line at Top
+## Add Line at Top
 
-./otTextEditor addLineTop file.txt "New first line"
+`./otTextEditor addLineTop file.txt "New first line"`
 
-Add Line at Bottom
+## Add Line at Bottom
 
-./otTextEditor addLineBottom file.txt "New last line"
+`./otTextEditor addLineBottom file.txt "New last line"`
 
-Add Line at Specific Position
+## Add Line at Specific Position
 
-./otTextEditor addLineAt file.txt 3 "New line at position 3"
+`./otTextEditor addLineAt file.txt 3 "New line at position 3"`
 
-Replace First Word
+## Replace First Word
 
-./otTextEditor updateFirstWord file.txt DEVOPS KUBERNETES
+`./otTextEditor updateFirstWord file.txt DEVOPS KUBERNETES`
 
-Replace All Words
+## Replace All Words
 
-./otTextEditor updateAllWords file.txt RAHUL SURESH
+`./otTextEditor updateAllWords file.txt RAHUL SURESH`
 
-Insert Word
+## Insert Word
 
-./otTextEditor insertWord file.txt DEVOPS MYGURUKULUM AT
+`./otTextEditor insertWord file.txt DEVOPS MYGURUKULUM AT`
 
-Delete Line
+## Delete Line
 
-./otTextEditor deleteLine file.txt 3
+`./otTextEditor deleteLine file.txt 3`
 
-Delete Line Containing Word
+## Delete Line Containing Word
 
-./otTextEditor delLineWord file.txt WINTER
+`./otTextEditor delLineWord file.txt WINTER`
 
 ### Count Lines
 
-./otTextEditor countLines file.txt
+`./otTextEditor countLines file.txt`
 
-Convert to Uppercase
+## Convert to Uppercase
 
-./otTextEditor upperCase file.txt
+`./otTextEditor upperCase file.txt`
 
 # Important Bash Concepts Used
 
@@ -454,56 +454,56 @@ Convert to Uppercase
 
 The text editor uses positional parameters:
 
-cmd=$1
-file=$2
+`cmd=$1`
+`file=$2`
 
-### For example:
+For example:
 
-./otTextEditor updateAllWords file.txt RAHUL SURESH
+`./otTextEditor updateAllWords file.txt RAHUL SURESH`
 
 ### The values are:
 
-$1 = updateAllWords
-$2 = file.txt
-$3 = RAHUL
-$4 = SURESH
+`$1 = updateAllWords`
+`$2 = file.txt`
+`$3 = RAHUL`
+`$4 = SURESH`
 
 ### For addLineAt:
 
-./otTextEditor addLineAt file.txt 3 "New line"
+`./otTextEditor addLineAt file.txt 3 "New line"`
 
-### the values are:
+the values are:
 
-$1 = addLineAt
-$2 = file.txt
-$3 = 3
-$4 = New line
+`$1 = addLineAt`
+`$2 = file.txt`
+`$3 = 3`
+`$4 = New line`
 
 ## case Statement
 
-### The script uses:
+The script uses:
 
-case "$cmd" in
+`case "$cmd" in`
 
 to determine which text editing operation should be executed.
 
-### For example:
+For example:
 
-case "$cmd" in
+`case "$cmd" in`
 
-addLineTop)
+`addLineTop)`
     ...
     ;;
 
-addLineBottom)
+`addLineBottom)`
     ...
     ;;
 
-deleteLine)
+`deleteLine)`
     ...
     ;;
 
-esac
+`esac`
 
 ## sed -i
 
@@ -517,7 +517,7 @@ The -i option modifies the file directly rather than only displaying the result.
 
 The addLineBottom operation uses:
 
-echo "$line" >> "$file"
+`echo "$line" >> "$file"`
 
 The >> operator appends content without overwriting the existing file.
 
@@ -527,15 +527,15 @@ The assignment asks for additional features, and the implementation includes:
 
 ### Count Lines
 
-./otTextEditor countLines file.txt
+`./otTextEditor countLines file.txt`
 
-Uses:
+### Uses:
 
-wc -l < file.txt
+`wc -l < file.txt`
 
 ### Uppercase
 
-./otTextEditor upperCase file.txt
+`./otTextEditor upperCase file.txt`
 
 Converts the complete file content to uppercase.
 
@@ -543,7 +543,7 @@ Converts the complete file content to uppercase.
 
 The assignment specifies:
 
-./otTextEditor deleteLineWord \<file> \<line no> \<word>
+`./otTextEditor deleteLineWord <file> <line no> <word>`
 
 However, the implemented script uses:
 
@@ -551,7 +551,7 @@ delLineWord)
 
 and accepts:
 
-./otTextEditor delLineWord file.txt WINTER
+`./otTextEditor delLineWord file.txt WINTER`
 
 There is also a difference in the assignment's example and implementation: the assignment mentions a line number for deleteLineWord, but the current script only takes the word and deletes every line containing that word.
 
@@ -578,28 +578,28 @@ file redirection
 
 Make both scripts executable:
 
-chmod +x templateEngine.sh
-chmod +x otTextEditor
+`chmod +x templateEngine.sh`
+`chmod +x otTextEditor`
 
 Run the template engine:
 
-./templateEngine.sh trainer.template name=Rahul place=uttarakhand
+`./templateEngine.sh trainer.template name=Rahul place=uttarakhand`
 
 Run the text editor:
 
-./otTextEditor countLines file.txt
+`./otTextEditor countLines file.txt`
 
 or:
 
-./otTextEditor addLineTop file.txt "New first line"
+`./otTextEditor addLineTop file.txt "New first line"`
 
 
 ## Screenshots
 
 
-![Screenshot 1]\(partB/a5.b.1.png)
-![Screenshot 2]\(partB/a5.b.2.png)
-![Screenshot 3]\(partB/a5.b.3.png)
+![Screenshot 1](partB/a5.b.1.png)
+![Screenshot 2](partB/a5.b.2.png)
+![Screenshot 3](partB/a5.b.3.png)
 
 # Conclusion
 
@@ -625,13 +625,13 @@ templateEngine.sh demonstrates:
 
 ### Example:
 
-./templateEngine.sh trainer.template name=Rahul place=uttarakhand
+`./templateEngine.sh trainer.template name=Rahul place=uttarakhand`
 
 ### Output:
 
 Hello this is Rahul from uttarakhand.
 
-# Part B — Text Editor
+## Part B — Text Editor
 
 otTextEditor demonstrates:
 
