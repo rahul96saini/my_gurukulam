@@ -147,7 +147,7 @@ How the Script Works
 1. Automatically Request sudo
 
 if [ "$EUID" -ne 0 ]; then
-    exec sudo "$0" "$@"
+exec sudo "$0" "$@"
 fi
 
 $EUID contains the effective user ID.
@@ -219,7 +219,7 @@ chmod 751 /home/Rakesh
 Permission:
 
 rwx r-x --x
- 7   5   1
+7   5   1
 
 5. Set Home Directory Ownership
 
@@ -227,7 +227,7 @@ chown "$USER_NAME:$GROUP_NAME" "/home/$USER_NAME"
 
 For Rakesh:
 
-chown Rakesh:amigo /home/Rakesh
+chown Rakesh\:amigo /home/Rakesh
 
 This makes Rakesh the owner and amigo the group owner.
 
@@ -463,7 +463,6 @@ List Users
 List Groups
 
 ./UserManager.sh ls Group
-
 
 Conclusion
 

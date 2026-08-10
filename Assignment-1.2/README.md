@@ -1,11 +1,10 @@
-ASSIGNMENT 1.2 — Basic Linux Commands
+Linux Assignment-1.2
 
 Objective
 
 Create a command-line utility named FileManager.sh for performing basic Linux directory and file-management operations.
 
 Note: The assignment says not to use sed. This implementation does not use sed.
-
 
 How the Script Works
 
@@ -21,9 +20,7 @@ For example:
 
 The arguments are:
 
-$1 = addDir
-$2 = /tmp
-$3 = dir1
+$1 = addDir$2 = /tmp$3 = dir1
 
 The case statement identifies addDir and executes its corresponding commands.
 
@@ -31,9 +28,7 @@ Directory Operations
 
 1. Create a Directory
 
-./FileManager.sh addDir /tmp dir1
-./FileManager.sh addDir /tmp dir2
-./FileManager.sh addDir /tmp dir3
+./FileManager.sh addDir /tmp dir1./FileManager.sh addDir /tmp dir2./FileManager.sh addDir /tmp dir3
 
 Internally:
 
@@ -127,9 +122,7 @@ The >> operator appends content without overwriting existing content.
 
 The script uses:
 
-echo "$4" > temp.txt
-cat "$2/$3" >> temp.txt
-mv temp.txt "$2/$3"
+echo "$4" > temp.txtcat "$2/$3" >> temp.txtmv temp.txt "$2/$3"
 
 How it works
 
@@ -217,7 +210,7 @@ To copy with a different name:
 
 Internally:
 
-> "$2/$3"
+"$2/$3"
 
 This sets the file size to zero while keeping the file itself.
 
@@ -233,37 +226,23 @@ Complete Command Examples
 
 Directory Commands
 
-./FileManager.sh addDir /tmp dir1
-./FileManager.sh addDir /tmp dir2
-./FileManager.sh addDir /tmp dir3
+./FileManager.sh addDir /tmp dir1./FileManager.sh addDir /tmp dir2./FileManager.sh addDir /tmp dir3
 
-./FileManager.sh listContent /tmp
-./FileManager.sh listFiles /tmp
-./FileManager.sh listDirs /tmp
-./FileManager.sh listAll /tmp
+./FileManager.sh listContent /tmp./FileManager.sh listFiles /tmp./FileManager.sh listDirs /tmp./FileManager.sh listAll /tmp
 
 ./FileManager.sh deleteDir /tmp dir3
 
 File Commands
 
-./FileManager.sh addFile /tmp/dir1 file1.txt
-./FileManager.sh addFile /tmp/dir1 file1.txt "Initial Content"
-./FileManager.sh addContentToFile /tmp/dir1 file1.txt "Additional Content"
-./FileManager.sh addContentToFileBegining /tmp/dir1 file1.txt "Additional Content"
+./FileManager.sh addFile /tmp/dir1 file1.txt./FileManager.sh addFile /tmp/dir1 file1.txt "Initial Content"./FileManager.sh addContentToFile /tmp/dir1 file1.txt "Additional Content"./FileManager.sh addContentToFileBegining /tmp/dir1 file1.txt "Additional Content"
 
-./FileManager.sh showFileBeginingContent /tmp/dir1 file1.txt 5
-./FileManager.sh showFileEndContent /tmp/dir1 file1.txt 5
-./FileManager.sh showFileContentAtLine /tmp/dir1 file1.txt 10
-./FileManager.sh showFileContentForLineRange /tmp/dir1 file1.txt 5 10
+./FileManager.sh showFileBeginingContent /tmp/dir1 file1.txt 5./FileManager.sh showFileEndContent /tmp/dir1 file1.txt 5./FileManager.sh showFileContentAtLine /tmp/dir1 file1.txt 10./FileManager.sh showFileContentForLineRange /tmp/dir1 file1.txt 5 10
 
-./FileManager.sh moveFile /tmp/dir1/file1.txt /tmp/dir1/file2.txt
-./FileManager.sh moveFile /tmp/dir1/file2.txt /tmp/dir2/
+./FileManager.sh moveFile /tmp/dir1/file1.txt /tmp/dir1/file2.txt./FileManager.sh moveFile /tmp/dir1/file2.txt /tmp/dir2/
 
-./FileManager.sh copyFile /tmp/dir2/file2.txt /tmp/dir1/
-./FileManager.sh copyFile /tmp/dir1/file2.txt /tmp/dir1/file3.txt
+./FileManager.sh copyFile /tmp/dir2/file2.txt /tmp/dir1/./FileManager.sh copyFile /tmp/dir1/file2.txt /tmp/dir1/file3.txt
 
-./FileManager.sh clearFileContent /tmp/dir1 file3.txt
-./FileManager.sh deleteFile /tmp/dir1 file2.txt
+./FileManager.sh clearFileContent /tmp/dir1 file3.txt./FileManager.sh deleteFile /tmp/dir1 file2.txt
 
 ## Screenshots
 
@@ -384,7 +363,6 @@ deleteFile
 
 rm
 
-
 Important Bash Concepts
 
 Positional Parameters
@@ -395,10 +373,7 @@ Example:
 
 Values:
 
-$1 = addFile
-$2 = /tmp/dir1
-$3 = file1.txt
-$4 = Initial Content
+$1 = addFile$2 = /tmp/dir1$3 = file1.txt$4 = Initial Content
 
 For a line-range command:
 
@@ -406,24 +381,13 @@ For a line-range command:
 
 Values:
 
-$1 = showFileContentForLineRange
-$2 = /tmp/dir1
-$3 = file1.txt
-$4 = 5
-$5 = 10
+$1 = showFileContentForLineRange$2 = /tmp/dir1$3 = file1.txt$4 = 5$5 = 10
 
 case
 
 Used to select an operation based on $1:
 
-case "$1" in
-    addDir)
-        ...
-        ;;
-    deleteDir)
-        ...
-        ;;
-esac
+case "$1" inaddDir)...;;deleteDir)...;;esac
 
 Redirection
 
@@ -437,7 +401,7 @@ echo "Hello Again" >> file.txt
 
 Clear:
 
-> file.txt
+file.txt
 
 Pipes
 
@@ -455,9 +419,7 @@ No sed command is used in this implementation.
 
 For line operations, the script uses:
 
-head
-tail
-awk
+headtailawk
 
 Examples:
 
@@ -482,4 +444,3 @@ and:
 ./FileManager.sh addFile /tmp/dir1 file1.txt "Initial Content"
 
 The script demonstrates practical use of Bash positional parameters, case, conditional statements, file redirection, mkdir, rmdir, ls, find, touch, echo, cat, head, tail, awk, mv, cp, and rm.
-
