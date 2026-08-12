@@ -1,0 +1,82 @@
+#!/bin/bash
+
+case "$1" in
+
+topProcess)
+    n="$2"
+    type="$3"
+
+    if [ "$type" = "memory" ]; then
+        ps -eo pid,comm,%mem --sort=-%mem | head -n $((n+1))
+    elif [ "$type" = "cpu" ]; then
+        ps -eo pid,comm,%cpu --sort=-%cpu | head -n $((n+1))
+    else
+        echo "Use memory or cpu"
+    fi
+    ;;
+
+#killLeastPriorityProcess)
+#    pid=$(ps -eo pid,ni --sort=-ni | awk 'NR==2 {print $1}')
+
+#    if [ -n "$pid" ]; then
+#        echo "Killing PID: $pid"
+#        kill "$pid"
+#    else
+#        echo "No process found"
+#    fi
+#    ;;
+
+killLeastPriorityProcess)
+    pid=$(ps -eo pid,ni --sort=-ni | awk 'NR==2 {print $1}')
+
+    if [ -n "$pid" ]; then
+        # Get the process name directly using the PID we already have
+        name=$(ps -p "$pid" -o comm=)
+
+        echo "Killing PID: $pid (Name: $name)"
+        kill "$pid"
+    else
+        echo "No process found"
+    fi
+    ;;
+
+RunningDurationProcess)
+    ps -eo pid,comm,etime | grep -w "$2"
+    ;;
+
+listOrphanProcess)
+    echo "Orphan Processes:"
+    ps -eo pid,ppid,stat,comm | awk '$2 == 1'
+    ;;
+
+listZoombieProcess)
+    echo "Zombie Processes:"
+    ps -eo pid,ppid,stat,comm | awk '$3 ~ /^Z/'
+    ;;
+
+killProcess)
+    if [[ "$2" =~ ^[0-9]+$ ]]; then
+        kill "$2"
+    else
+        pkill -x "$2"
+    fi
+    ;;
+
+ListWaitingProcess)
+    echo "Waiting Processes:"
+    ps -eo pid,stat,wchan,comm | awk '$2 ~ /^D/'
+    ;;
+
+*)
+    echo "Usage:"
+    echo "./otProcessManager topProcess 5 memory"
+    echo "./otProcessManager topProcess 10 cpu"
+    echo "./otProcessManager killLeastPriorityProcess"
+    echo "./otProcessManager RunningDurationProcess <name/pid>"
+    echo "./otProcessManager listOrphanProcess"
+    echo "./otProcessManager listZoombieProcess"
+    echo "./otProcessManager killProcess <name/pid>"
+    echo "./otProcessManager ListWaitingProcess"
+    ;;
+
+esac
