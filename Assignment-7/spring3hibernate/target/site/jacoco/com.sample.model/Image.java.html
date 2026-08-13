@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Image.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Spring3HibernateApp</a> &gt; <a href="index.source.html" class="el_package">com.sample.model</a> &gt; <span class="el_source">Image.java</span></div><h1>Image.java</h1><pre class="source lang-java linenums">package com.sample.model;
+
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name=&quot;Images&quot;)
+<span class="nc" id="L14">public class Image implements Serializable{</span>
+
+	private static final long serialVersionUID = -723583058586873479L;
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = &quot;id&quot;)
+	private Integer id;
+	
+	@Column(name=&quot;imagename&quot;)
+	private String imageName;
+
+	/**
+	 * @return the id
+	 */
+	public Integer getId() {
+<span class="nc" id="L30">		return id;</span>
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Integer id) {
+<span class="nc" id="L37">		this.id = id;</span>
+<span class="nc" id="L38">	}</span>
+
+	/**
+	 * @return the imageName
+	 */
+	public String getImageName() {
+<span class="nc" id="L44">		return imageName;</span>
+	}
+
+	/**
+	 * @param imageName the imageName to set
+	 */
+	public void setImageName(String imageName) {
+<span class="nc" id="L51">		this.imageName = imageName;</span>
+<span class="nc" id="L52">	}</span>
+	
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

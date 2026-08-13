@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FileUploadServlet.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Spring3HibernateApp</a> &gt; <a href="index.source.html" class="el_package">com.sample.servlet</a> &gt; <span class="el_source">FileUploadServlet.java</span></div><h1>FileUploadServlet.java</h1><pre class="source lang-java linenums">package com.sample.servlet;
+ import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+import java.util.Properties;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.springframework.core.io.ClassPathResource;
+
+import com.sample.model.Image;
+import com.sample.service.ImageService;
+import com.sample.service.ImageServiceImpl;
+
+/**
+ * Servlet to handle File upload request from Client
+ */
+<span class="nc" id="L25">public class FileUploadServlet extends HttpServlet {</span>
+  
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+<span class="nc" id="L30">    	String name = &quot;&quot;;</span>
+        //process only if its multipart content
+<span class="nc bnc" id="L32" title="All 2 branches missed.">        if(ServletFileUpload.isMultipartContent(request)){</span>
+            try {
+<span class="nc" id="L34">                List&lt;FileItem&gt; multiparts = new ServletFileUpload(</span>
+<span class="nc" id="L35">                                         new DiskFileItemFactory()).parseRequest(request);</span>
+              
+<span class="nc bnc" id="L37" title="All 2 branches missed.">                for(FileItem item : multiparts){</span>
+<span class="nc bnc" id="L38" title="All 2 branches missed.">                    if(!item.isFormField()){</span>
+<span class="nc" id="L39">                        name = new File(item.getName()).getName();</span>
+<span class="nc" id="L40">                        item.write( new File(getUploadDir() + File.separator + name));</span>
+                    }
+<span class="nc" id="L42">                }</span>
+           
+               //File uploaded successfully
+<span class="nc" id="L45">               request.setAttribute(&quot;message&quot;, &quot;File Uploaded Successfully&quot;);</span>
+               
+               //Saving Image
+<span class="nc" id="L48">               Image i = new Image();</span>
+<span class="nc" id="L49">               i.setImageName(name);</span>
+<span class="nc" id="L50">               ImageService service = new ImageServiceImpl();</span>
+<span class="nc" id="L51">               service.saveImage(i);</span>
+               
+<span class="nc" id="L53">            } catch (Exception ex) {</span>
+<span class="nc" id="L54">               request.setAttribute(&quot;message&quot;, &quot;File Upload Failed due to &quot; + ex);</span>
+             
+<span class="nc" id="L56">            }          </span>
+         
+        }else{
+<span class="nc" id="L59">            request.setAttribute(&quot;message&quot;,</span>
+                                 &quot;Sorry this Servlet only handles file upload request&quot;);
+        }
+     
+        
+<span class="nc" id="L64">        response.sendRedirect(request.getContextPath() + &quot;/index.html&quot;);</span>
+     
+<span class="nc" id="L66">    }</span>
+  
+    private String getUploadDir() {
+<span class="nc" id="L69">    	String uploadDir = null;</span>
+<span class="nc" id="L70">    	InputStream in = null;</span>
+    	try{
+<span class="nc" id="L72">    		in = new ClassPathResource(&quot;database.properties&quot;).getInputStream();</span>
+<span class="nc" id="L73">    		Properties prop = new Properties();</span>
+
+<span class="nc" id="L75">    		prop.load(in);</span>
+<span class="nc" id="L76">    		uploadDir = prop.getProperty(&quot;upload.dir&quot;);</span>
+    	} 
+<span class="nc" id="L78">    	catch (IOException e) {</span>
+
+<span class="nc" id="L80">    		e.printStackTrace();</span>
+    	} finally {
+<span class="nc bnc" id="L82" title="All 2 branches missed.">    		if(in != null)</span>
+    			try {
+<span class="nc" id="L84">    				in.close();</span>
+<span class="nc" id="L85">    			} catch (IOException e) {</span>
+    				//do nothing
+<span class="nc" id="L87">    			}</span>
+    	}
+<span class="nc" id="L89">    	return uploadDir;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

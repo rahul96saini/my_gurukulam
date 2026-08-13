@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EmployeeServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Spring3HibernateApp</a> &gt; <a href="index.source.html" class="el_package">com.sample.service</a> &gt; <span class="el_source">EmployeeServiceImpl.java</span></div><h1>EmployeeServiceImpl.java</h1><pre class="source lang-java linenums">package com.sample.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.sample.dao.EmployeeDao;
+import com.sample.model.Employee;
+
+@Service(&quot;employeeService&quot;)
+@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+<span class="fc" id="L15">public class EmployeeServiceImpl implements EmployeeService {</span>
+
+	@Autowired
+	private EmployeeDao employeeDao;
+	
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	public void addEmployee(Employee employee) {
+		try{
+			
+		} catch (Exception e){
+			
+		}
+<span class="nc" id="L27">		employeeDao.addEmployee(employee);</span>
+<span class="nc" id="L28">	}</span>
+	
+	public List&lt;Employee&gt; listEmployeess() {
+<span class="nc" id="L31">		return employeeDao.listEmployeess();</span>
+	}
+
+	public Employee getEmployee(int empid) {
+<span class="fc" id="L35">		return employeeDao.getEmployee(empid);</span>
+	}
+	
+	public void deleteEmployee(Employee employee) {
+<span class="nc" id="L39">		employeeDao.deleteEmployee(employee);</span>
+<span class="nc" id="L40">	}</span>
+
+	protected void setEmployeeDao(EmployeeDao employeeDao) {
+<span class="fc" id="L43">		this.employeeDao = employeeDao;</span>
+<span class="fc" id="L44">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EmployeeController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Spring3HibernateApp</a> &gt; <a href="index.source.html" class="el_package">com.sample.controller</a> &gt; <span class="el_source">EmployeeController.java</span></div><h1>EmployeeController.java</h1><pre class="source lang-java linenums">package com.sample.controller;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.sample.bean.EmployeeBean;
+import com.sample.bean.FileBean;
+import com.sample.model.Employee;
+import com.sample.service.EmployeeService;
+import com.sample.service.ImageService;
+
+@Controller
+<span class="nc" id="L23">public class EmployeeController {</span>
+	
+	@Autowired
+	private EmployeeService employeeService;
+	
+	@Autowired
+	private ImageService imageService;
+	
+	@RequestMapping(value = &quot;/save&quot;, method = RequestMethod.POST)
+	public ModelAndView saveEmployee(@ModelAttribute(&quot;command&quot;) EmployeeBean employeeBean, 
+			BindingResult result) {
+<span class="nc" id="L34">		Employee employee = prepareModel(employeeBean);</span>
+<span class="nc" id="L35">		employeeService.addEmployee(employee);</span>
+<span class="nc" id="L36">		return new ModelAndView(&quot;redirect:/add.html&quot;);</span>
+	}
+
+	@RequestMapping(value=&quot;/employees&quot;, method = RequestMethod.GET)
+	public ModelAndView listEmployees() {
+<span class="nc" id="L41">		Map&lt;String, Object&gt; model = new HashMap&lt;String, Object&gt;();</span>
+<span class="nc" id="L42">		model.put(&quot;employees&quot;,  prepareListofBean(employeeService.listEmployeess()));</span>
+<span class="nc" id="L43">		return new ModelAndView(&quot;employeesList&quot;, model);</span>
+	}
+
+	@RequestMapping(value=&quot;/listImages&quot;, method = RequestMethod.GET)
+	public ModelAndView listImages() {
+<span class="nc" id="L48">		Map&lt;String, Object&gt; model = new HashMap&lt;String, Object&gt;();</span>
+<span class="nc" id="L49">		model.put(&quot;images&quot;,  imageService.listImages());</span>
+<span class="nc" id="L50">		return new ModelAndView(&quot;listImages&quot;, model);</span>
+	}
+
+	
+	@RequestMapping(value = &quot;/add&quot;, method = RequestMethod.GET)
+	public ModelAndView addEmployee(@ModelAttribute(&quot;command&quot;)  EmployeeBean employeeBean,
+			BindingResult result) {
+<span class="nc" id="L57">		Map&lt;String, Object&gt; model = new HashMap&lt;String, Object&gt;();</span>
+<span class="nc" id="L58">		model.put(&quot;employees&quot;,  prepareListofBean(employeeService.listEmployeess()));</span>
+<span class="nc" id="L59">		return new ModelAndView(&quot;addEmployee&quot;, model);</span>
+	}
+	
+	@RequestMapping(value = &quot;/fileUpload&quot;, method = RequestMethod.GET)
+	public ModelAndView fileUpload(@ModelAttribute(&quot;command&quot;)  FileBean fileBean,
+			BindingResult result) {
+<span class="nc" id="L65">		Map&lt;String, Object&gt; model = new HashMap&lt;String, Object&gt;();</span>
+<span class="nc" id="L66">		return new ModelAndView(&quot;fileUpload&quot;, model);</span>
+	}
+	
+	
+	@RequestMapping(value = &quot;/index&quot;, method = RequestMethod.GET)
+	public ModelAndView welcome() {
+<span class="nc" id="L72">		return new ModelAndView(&quot;index&quot;);</span>
+	}
+	
+	@RequestMapping(value = &quot;/delete&quot;, method = RequestMethod.GET)
+	public ModelAndView editEmployee(@ModelAttribute(&quot;command&quot;)  EmployeeBean employeeBean,
+			BindingResult result) {
+<span class="nc" id="L78">		employeeService.deleteEmployee(prepareModel(employeeBean));</span>
+<span class="nc" id="L79">		Map&lt;String, Object&gt; model = new HashMap&lt;String, Object&gt;();</span>
+<span class="nc" id="L80">		model.put(&quot;employee&quot;, null);</span>
+<span class="nc" id="L81">		model.put(&quot;employees&quot;,  prepareListofBean(employeeService.listEmployeess()));</span>
+<span class="nc" id="L82">		return new ModelAndView(&quot;addEmployee&quot;, model);</span>
+	}
+	
+	@RequestMapping(value = &quot;/edit&quot;, method = RequestMethod.GET)
+	public ModelAndView deleteEmployee(@ModelAttribute(&quot;command&quot;)  EmployeeBean employeeBean,
+			BindingResult result) {
+<span class="nc" id="L88">		Map&lt;String, Object&gt; model = new HashMap&lt;String, Object&gt;();</span>
+<span class="nc" id="L89">		model.put(&quot;employee&quot;, prepareEmployeeBean(employeeService.getEmployee(employeeBean.getId())));</span>
+<span class="nc" id="L90">		model.put(&quot;employees&quot;,  prepareListofBean(employeeService.listEmployeess()));</span>
+<span class="nc" id="L91">		return new ModelAndView(&quot;addEmployee&quot;, model);</span>
+	}
+	
+	private Employee prepareModel(EmployeeBean employeeBean){
+<span class="nc" id="L95">		Employee employee = new Employee();</span>
+<span class="nc" id="L96">		employee.setEmpAddress(employeeBean.getAddress());</span>
+<span class="nc" id="L97">		employee.setEmpAge(employeeBean.getAge());</span>
+<span class="nc" id="L98">		employee.setEmpName(employeeBean.getName());</span>
+<span class="nc" id="L99">		employee.setSalary(employeeBean.getSalary());</span>
+<span class="nc" id="L100">		employee.setEmpId(employeeBean.getId());</span>
+<span class="nc" id="L101">		employeeBean.setId(null);</span>
+<span class="nc" id="L102">		return employee;</span>
+	}
+	
+	private List&lt;EmployeeBean&gt; prepareListofBean(List&lt;Employee&gt; employees){
+<span class="nc" id="L106">		List&lt;EmployeeBean&gt; beans = null;</span>
+<span class="nc bnc" id="L107" title="All 4 branches missed.">		if(employees != null &amp;&amp; !employees.isEmpty()){</span>
+<span class="nc" id="L108">			beans = new ArrayList&lt;EmployeeBean&gt;();</span>
+<span class="nc" id="L109">			EmployeeBean bean = null;</span>
+<span class="nc bnc" id="L110" title="All 2 branches missed.">			for(Employee employee : employees){</span>
+<span class="nc" id="L111">				bean = new EmployeeBean();</span>
+<span class="nc" id="L112">				bean.setName(employee.getEmpName());</span>
+<span class="nc" id="L113">				bean.setId(employee.getEmpId());</span>
+<span class="nc" id="L114">				bean.setAddress(employee.getEmpAddress());</span>
+<span class="nc" id="L115">				bean.setSalary(employee.getSalary());</span>
+<span class="nc" id="L116">				bean.setAge(employee.getEmpAge());</span>
+<span class="nc" id="L117">				beans.add(bean);</span>
+<span class="nc" id="L118">			}</span>
+		}
+<span class="nc" id="L120">		return beans;</span>
+	}
+	
+	private EmployeeBean prepareEmployeeBean(Employee employee){
+<span class="nc" id="L124">		EmployeeBean bean = new EmployeeBean();</span>
+<span class="nc" id="L125">		bean.setAddress(employee.getEmpAddress());</span>
+<span class="nc" id="L126">		bean.setAge(employee.getEmpAge());</span>
+<span class="nc" id="L127">		bean.setName(employee.getEmpName());</span>
+<span class="nc" id="L128">		bean.setSalary(employee.getSalary());</span>
+<span class="nc" id="L129">		bean.setId(employee.getEmpId());</span>
+<span class="nc" id="L130">		return bean;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

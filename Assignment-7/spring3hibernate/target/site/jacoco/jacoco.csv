@@ -1,0 +1,12 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+Spring3HibernateApp,com.sample.controller,EmployeeController,256,0,6,0,54,0,15,0,12,0
+Spring3HibernateApp,com.sample.bean,FileBean,17,0,0,0,7,0,5,0,5,0
+Spring3HibernateApp,com.sample.bean,EmployeeBean,28,10,0,0,12,4,8,3,8,3
+Spring3HibernateApp,com.sample.dao,ImageDaoImpl,28,0,0,0,6,0,5,0,5,0
+Spring3HibernateApp,com.sample.dao,EmployeeDaoImpl,41,0,0,0,7,0,5,0,5,0
+Spring3HibernateApp,com.sample.servlet,FileUploadServlet,134,0,8,0,34,0,7,0,3,0
+Spring3HibernateApp,com.sample.servlet,DownloadServlet,132,0,6,0,36,0,6,0,3,0
+Spring3HibernateApp,com.sample.service,ImageServiceImpl,38,0,2,0,11,0,7,0,6,0
+Spring3HibernateApp,com.sample.service,EmployeeServiceImpl,14,12,0,0,5,4,3,3,3,3
+Spring3HibernateApp,com.sample.model,Image,17,0,0,0,7,0,5,0,5,0
+Spring3HibernateApp,com.sample.model,Employee,24,14,0,0,10,6,7,4,7,4
